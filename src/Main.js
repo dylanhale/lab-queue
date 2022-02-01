@@ -110,7 +110,7 @@ class Main extends Component{
                                     sx={{ my: 2, color: 'white', display: 'block'}}
                                 >
                                     TESTING
-                                    Return to Landing
+                                    Return to Landing Page
                                 </Button>
                                 
                                 <Button        
