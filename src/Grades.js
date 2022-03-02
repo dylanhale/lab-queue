@@ -12,14 +12,14 @@ const LandingPage = props => {
             spacing={0}
             direction="column"
             alignItems="center"
-            justifyContent="center"
+            justifyContent="top"
             style={{ minHeight: '80vh' }}
         >
             <Grid item xs={3}>
-                <Card sx={{ maxWidth: 345 }}>
+                <Card sx={{ maxWidth: 700 }}>
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                    This is where the grades will be later on
+                    <Typography gutterBottom variant="h4" component="div">
+                    Grade Portal
                     </Typography>
                 </CardContent>
                 </Card>

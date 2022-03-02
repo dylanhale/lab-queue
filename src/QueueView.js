@@ -12,13 +12,13 @@ const LandingPage = props => {
             direction="column"
             alignItems="center"
             justifyContent="top"
-            style={{ minHeight: '10vh' }}
+            style={{ minHeight: '80vh' }}
         >
             <Grid item xs={3}>
                 <Card sx={{ maxWidth: 700 }}>
                 <CardContent>
                     <Typography gutterBottom variant="h4" component="div">
-                    Admin Controls
+                    Queue View
                     </Typography>
                 </CardContent>
                 </Card>

@@ -34,6 +34,10 @@ function Tester(){
   return <Button variant="contained">Hello World</Button>;
 }
 
+function changebackground(){
+	document.body.style.backgroundColor = 'green';
+}
+
 var element = React.createElement('h1', { className: 'greeting '}, 'Hello, world!');
 ReactDOM.render(<WrapApp />, document.getElementById('root'));
 

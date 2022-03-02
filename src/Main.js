@@ -9,8 +9,12 @@ import { Box } from "@mui/system";
 import Admin from "./Admin";
 import App from "./App";
 import Grades from "./Grades";
+import QueueView from "./QueueView";
 
-const pages = ['Testing Pages', 'Admin', 'Grades', 'Hidden']
+const pages = ['Testing Pages', 'Admin', 'Grades', 'Hidden', 'QueueView']
+
+var element = document.body;
+element.style.backgroundColor = "lightgrey";
 
 class Main extends Component{
 
@@ -25,6 +29,7 @@ class Main extends Component{
         this.tempClick = this.tempClick.bind(this)
         this.gradesClick = this.gradesClick.bind(this)
         this.hiddenClick = this.hiddenClick.bind(this)
+        this.queueClick = this.queueClick.bind(this)
     }
     
     adminClick(){
@@ -47,6 +52,11 @@ class Main extends Component{
             console.log("Hidden WORKED")
     }
 
+    queueClick(){
+        this.setState({lab: 'queue'})
+            console.log("Hidden WORKED")
+    }
+
     handleToggle = () => this.setState({ openDrawer: !this.state.openDrawer })
 
     handleDrawerAndClose = val =>
@@ -56,21 +66,6 @@ class Main extends Component{
         })
 
     renderPageBasedOnSlider() {
-        /*if(this.state.user){
-            switch (this.state.lab){
-                case 'admin':
-                    return <Admin />
-                default:
-                    return (
-                        <App
-                            user={this.state.user}
-                        />
-                    )
-            }
-        }
-        else {
-            return <LandingPage />
-        }*/
         switch(this.state.lab){
             case 'admin':
                 return <Admin />
@@ -80,6 +75,8 @@ class Main extends Component{
                 return <Grades />
             case 'hidden':
                 return <App />
+            case 'queue':
+                return <QueueView />
             default:
                 return <LandingPage />
         }
@@ -109,8 +106,7 @@ class Main extends Component{
                                     onClick={this.tempClick}
                                     sx={{ my: 2, color: 'white', display: 'block'}}
                                 >
-                                    TESTING
-                                    Return to Landing Page
+                                    Landing Page
                                 </Button>
                                 
                                 <Button        
@@ -127,14 +123,17 @@ class Main extends Component{
                                     Admin
                                 </Button>
                                 <Button        
-                                    onClick={this.hiddenClick}
+                                    onClick={this.queueClick}
                                     sx={{ my: 2, color: 'white', display: 'block'}}
                                 >
-                                    Hidden
+                                    Queue
                                 </Button>
-                                
                             </Box>
-                            <Button color="inherit">Login Testing</Button>
+                            <Button
+                                color="inherit"
+                            >
+                                Login (Will redirect to google login)
+                            </Button>
 
                         </Toolbar>
                     </Container>
