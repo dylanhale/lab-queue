@@ -10,88 +10,18 @@ import Admin from "./Admin";
 import App from "./App";
 import Grades from "./Grades";
 import QueueView from "./QueueView";
+import { config } from "dotenv";
+import LoginPage from "./Login";
 
 const pages = ['Testing Pages', 'Admin', 'Grades', 'Hidden', 'QueueView']
 
 var element = document.body;
 element.style.backgroundColor = "lightgrey";
 
-var AWS = require("aws-sdk");
-AWS.config.region = 'us-east-1';
 
-function signinCallback(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail());
-
-    document.getElementById('profile-email').innerHTML = profile.getEmail();
-    document.getElementById('profile-name').innerHTML = profile.getName();
-    document.getElementById('profile-image').setAttribute('src', profile.getImageUrl());
-    document.getElementById('profile-card').hidden = false;
-    document.getElementById('signin-button').hidden = true;
-    document.querySelector('.fruit-list').hidden = false;
-
-    AWS.config.credentials = new AWS.WebIdentityCredentials({
-       RoleArn: 'ROLE_ARN',
-       ProviderId: null, // this is null for Google
-       WebIdentityToken: googleUser.getAuthResponse().id_token
-    });
-
-    // Obtain AWS credentials
-    AWS.config.credentials.get(async function(){
-    // Access AWS resources here.
-        var accessKeyId = AWS.config.credentials.accessKeyId;
-        var secretAccessKey = AWS.config.credentials.secretAccessKey;
-        var sessionToken = AWS.config.credentials.sessionToken;
-
-        const response = await fetch('http://localhost:8000/fruits', {
-            method: 'POST',
-            body: JSON.stringify({
-                'AccessKeyId': accessKeyId,
-                'SecretAccessKey': secretAccessKey,
-                'SessionToken': sessionToken
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-            });
-            const myJson = await response.json(); //extract JSON from the http response
-            const fruits = JSON.parse(myJson['fruits']);
-            console.log(typeof fruits);
-            console.log(fruits);
-
-            var str = ''
-            var arrayLength = fruits.length;
-            for (var i = 0; i < arrayLength; i++) {
-                str += '<li class="list-group-item d-flex justify-content-between align-items-center">' + fruits[i]['name'] +
-                        '<button type="button" class="btn btn-primary position-relative">$' + fruits[i]['price'] +
-                        '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">\n' +
-                        fruits[i]['quantity'] +
-                        '</span>' +
-                        '</button></li>'
-                // str += '<li class="list-group-item d-flex justify-content-between align-items-center">' + fruits[i]['name'] + ' <b>Price: $' + fruits[i]['price'] + '</b> ' + '<span class="badge bg-primary rounded-pill">' + fruits[i]['quantity'] + '</span></li>'
-            }
-            document.getElementById('fruit-list').innerHTML = str;
-
-    });
-
-}
-
-function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log('User signed out.');
-        document.getElementById('profile-card').hidden = true;
-        document.getElementById('fruit-list').innerHTML = null;
-        document.getElementById('signin-button').hidden = false;
-    });
-}
 
 class Main extends Component{
-
-    
+   
     constructor(props) {
         super(props)
         this.state = {
@@ -104,6 +34,7 @@ class Main extends Component{
         this.gradesClick = this.gradesClick.bind(this)
         this.hiddenClick = this.hiddenClick.bind(this)
         this.queueClick = this.queueClick.bind(this)
+        this.loginClick = this.loginClick.bind(this)
     }
     
     adminClick(){
@@ -131,6 +62,11 @@ class Main extends Component{
             console.log("Hidden WORKED")
     }
 
+    loginClick(){
+        this.setState({lab: 'login'})
+            console.log("Login Worked")
+    }
+
     handleToggle = () => this.setState({ openDrawer: !this.state.openDrawer })
 
     handleDrawerAndClose = val =>
@@ -151,6 +87,8 @@ class Main extends Component{
                 return <App />
             case 'queue':
                 return <QueueView />
+            case 'login':
+                return <Grades />
             default:
                 return <LandingPage />
         }
@@ -204,7 +142,8 @@ class Main extends Component{
                                 </Button>
                             </Box>
                             <Button
-                                color="inherit"
+                                onClick={this.loginClick}
+                                sx={{ my: 2, color: 'white', display: 'block'}}
                             >
                                 Login (Will redirect to google login)
                             </Button>

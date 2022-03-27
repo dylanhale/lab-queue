@@ -1,3 +1,5 @@
+//Unused code
+
 const {MongoClient} = require('mongodb');
 
 async function main(){
