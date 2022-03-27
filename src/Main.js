@@ -11,15 +11,47 @@ import App from "./App";
 import Grades from "./Grades";
 import QueueView from "./QueueView";
 import { config } from "dotenv";
-import LoginPage from "./Login";
+import GoogleLogin from "react-google-login";
 
 const pages = ['Testing Pages', 'Admin', 'Grades', 'Hidden', 'QueueView']
 
 var element = document.body;
 element.style.backgroundColor = "lightgrey";
 
+const handleLogin = async googleData => {
+    const res = await fetch("/config/google", {
+        method: "POST",
+        body: JSON.stringify({
+        token: googleData.tokenId
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    const data = await res.json()
+    console.log("user profile is: ", data)
+    // store returned user somehow
+  }
 
-
+  /*
+  const { OAuth2Client } = require('google-auth-library')
+  const client = new OAuth2Client(process.env.CLIENT_ID)
+  server.post("/api/v1/auth/google", async (req, res) => {
+      const { token }  = req.body
+      const ticket = await client.verifyIdToken({
+          idToken: token,
+          audience: process.env.CLIENT_ID
+      });
+      const { name, email, picture } = ticket.getPayload();    
+      const user = await db.user.upsert({ 
+          where: { email: email },
+          update: { name, picture },
+          create: { name, email, picture }
+      })
+      res.status(201)
+      res.json(user)
+  })
+ */
 class Main extends Component{
    
     constructor(props) {
@@ -88,7 +120,8 @@ class Main extends Component{
             case 'queue':
                 return <QueueView />
             case 'login':
-                return <Grades />
+                return <App />
+                
             default:
                 return <LandingPage />
         }
@@ -141,13 +174,13 @@ class Main extends Component{
                                     Queue
                                 </Button>
                             </Box>
-                            <Button
-                                onClick={this.loginClick}
-                                sx={{ my: 2, color: 'white', display: 'block'}}
-                            >
-                                Login (Will redirect to google login)
-                            </Button>
-
+                            <GoogleLogin
+                                clientId= {"749593876344-vlsk7otog4enhchrpq2jg8q767o0d89v.apps.googleusercontent.com"}
+                                buttonText="Log in with Google"
+                                onSuccess={handleLogin}
+                                onFailure={handleLogin}
+                                cookiePolicy={'single_host_origin'}
+                             />
                         </Toolbar>
                     </Container>
                 </AppBar>
