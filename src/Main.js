@@ -12,18 +12,26 @@ import Grades from "./Grades";
 import QueueView from "./QueueView";
 import { config } from "dotenv";
 import GoogleLogin from "react-google-login";
+import dbConn from "./config/db";
 
 //Currently throwing error -- Cannot Resolve ATM
 //import { GoogleAuth } from "google-auth-library";
 
 const pages = ['Testing Pages', 'Admin', 'Grades', 'Hidden', 'QueueView']
 
+//const dbConnect = require('./config/db')
 
+//dbConnect()
+
+dbConn()
+//const mongoose = require('mongoose')
 
 var element = document.body;
 element.style.backgroundColor = "lightgrey";
 
-const handleLogin = async googleData => {
+
+
+/*const handleLogin = async googleData => {
     console.log(googleData)
     const res = await fetch("/config/google", {
         method: "POST",
@@ -36,8 +44,15 @@ const handleLogin = async googleData => {
     })
     const data = await res.json()
     console.log("user profile is: ", googleData)
-  }
+  }*/
 
+const loginHandler = (response) => {
+    console.log(response);
+}
+
+const errorHandler = (response) => {
+    console.log(response)
+}
   
   //const { OAuth2Client } = require('google-auth-library')
   //const client = new OAuth2Client(process.env.CLIENT_ID)
@@ -182,8 +197,8 @@ class Main extends Component{
                             <GoogleLogin
                                 clientId= {"749593876344-vlsk7otog4enhchrpq2jg8q767o0d89v.apps.googleusercontent.com"}
                                 buttonText="Log in with Google"
-                                onSuccess={handleLogin}
-                                onFailure={handleLogin}
+                                onSuccess={loginHandler}
+                                onFailure={errorHandler}
                                 cookiePolicy={'single_host_origin'}
                              />
                         </Toolbar>

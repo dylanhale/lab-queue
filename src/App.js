@@ -5,7 +5,27 @@ import passport from 'passport';
 
 function App() {
 
-  const db = 'mongodb://localhost:27017/auth'
+  const express = require('express')
+  const dotenv = require('dotenv')
+
+  dotenv.config({ path: './config/config.env'})
+
+  const app = express()
+
+  const PORT = process.env.PORT || 3000
+
+  
+  const dbConnect = require('./config/db')
+
+  dbConnect()
+  //test
+
+  app.listen(
+    PORT, 
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+  )
+
+  /*const dB = 'mongodb://localhost:27017/auth'
   require("dotenv").config();
 
   const express = require("express");
@@ -22,7 +42,7 @@ function App() {
   app.use(cookieParser());
 
   mongoose.connect(
-    db,
+    dB,
     {
       useUnifedTopology: true,
       useNewUrlParser: true,
@@ -33,7 +53,7 @@ function App() {
       if(error) console.log(error)
     }
   )
-
+*/
   return (
     <div className="App">
       <header className="App-header">
