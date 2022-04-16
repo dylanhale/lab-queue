@@ -1,70 +1,38 @@
 {
-  "name": "lab-queue",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@fontsource/roboto": "^4.5.2",
-    "@material-ui/styles": "^4.11.4",
-    "@mui/icons-material": "^5.3.1",
-    "@mui/material": "^5.3.1",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
-    "assert": "^2.0.0",
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.2",
-    "browserify-zlib": "^0.2.0",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.6",
-    "crypto-browserify": "^3.12.0",
-    "dotenv": "^16.0.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.3",
-    "express-flash": "^0.0.2",
-    "express-session": "^1.17.2",
-    "google-auth-library": "^7.14.1",
-    "googleapis": "^97.0.0",
-    "mongodb": "^4.4.1",
-    "mongoose": "^6.2.8",
-    "os-browserify": "^0.3.0",
-    "passport": "^0.5.2",
-    "passport-google-oauth20": "^2.0.0",
-    "passport-local": "^1.0.0",
-    "path-browserify": "^1.0.1",
-    "querystring-es3": "^0.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-google-login": "^5.2.2",
-    "react-scripts": "5.0.0",
-    "url": "^0.11.0",
-    "util": "^0.12.4",
-    "uuid": "^8.3.2",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "adler-queue",
+    "version": "1.0.0",
+    "author": "Dylan Hale",
+    "description": "queue system with grading",
+    "main": "app.js",
+    "scripts": {
+        "start": "cross-env NODE_ENV=production node app",
+        "dev": "cross-env NODE_ENV=development nodemon app"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "body-parser": "^1.20.0",
+        "connect-flash": "^0.1.1",
+        "connect-mongo": "^3.2.0",
+        "cookie-parser": "^1.4.5",
+        "dotenv": "^8.6.0",
+        "ejs": "^3.1.5",
+        "express": "^4.17.3",
+        "express-flash": "0.0.2",
+        "express-handlebars": "^6.0.4",
+        "express-session": "^1.17.2",
+        "method-override": "^3.0.0",
+        "moment": "^2.29.2",
+        "mongoose": "^5.13.14",
+        "morgan": "^1.10.0",
+        "passport": "^0.4.1",
+        "passport-google-oauth20": "^2.0.0",
+        "passport-local": "^1.0.0",
+        "socket.io": "^4.4.1",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3",
+        "nodemon": "^2.0.15"
+    }
 }
