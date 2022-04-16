@@ -3,22 +3,22 @@
 Senior project
 
 ## Current Development Timeline
-<ol>
+<ul>
     <li>January - Project Created</li>
     <li>February - Research</li>
     <li>March - Initial Google OAuth Implementation</li>
     <li>April - Project Rehash</li>
     <li>April - Full Database and Google OAuth Implementation</li>
     <li>April - Queue Views feature complete</li>
-</ol>
+</ul>
 ## Future Development
-<ol>
+<ul>
 <li>April - Grade Portal Implementation</li>
 <li>April - Admin Panel? Implementation</li>
 <li>May - Product Delivery</li>
-</ol>
+</ul>
 ## Sources Used in the development of the project
-<ol>
+<ul>
     <li>https://www.w3schools.com/w3css/w3css_modal.asp</li>
     <li>https://morioh.com/p/67cdf462489c</li>
     <li>https://www.npmjs.com/package/method-override</li>
@@ -32,4 +32,4 @@ Senior project
     <li>https://www.mongodb.com/docs/atlas/data-explorer/databases-collections/</li>
     <li>https://support.google.com/cloud/answer/6158849?hl=en</li>
     <li>https://www.mongodb.com/docs/realm/authentication/google/#std-label-auth-gcp-project-setup</li>
-</ol>
+</ul>
