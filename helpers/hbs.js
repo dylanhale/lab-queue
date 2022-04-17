@@ -4,34 +4,6 @@ module.exports = {
     formatDate: function (date, format) {
         return moment(date).format(format)
     },
-    //Wont need this for project
-    truncate: function (str, len) {
-        if(str.length > len && str.length > 0){
-            let new_str = str + ' '
-            new_str = str.substr(0, len)
-            new_str = str.substr(0, new_str.lastIndexOf(' '))
-            new_str = new_str.length > 0 ? new_str : str.substr(0, len)
-            return new_str + '...'
-        }
-        return str
-    },
-    stripTags: function (input){
-        return input.replace(/<(?:.|\n)*?>/gm, '')
-    },
-    editIcon: function (storyUser, loggedUser, storyId, floating = true){
-        if(storyUser._id.toString() == loggedUser._id.toString()){
-            if(floating){
-                return `<a href="/stories/edit/${storyId}" class="btn-floating
-                halfway-fab blue"><i class="fas fa-edit fa-small"></i></a>`
-            }
-            else{
-                return `<a href="/stories/edit/${storyId}"><i class="fas fa-edit fa-small"></i></a>`
-            }
-        }
-        else{
-            return ''
-        }
-    },
     select: function (selected, options){
         return options
             .fn(this)
@@ -43,5 +15,16 @@ module.exports = {
                 new RegExp('>' + selected + '</option>'),
                 ' selected="selected"$&'
             )
+    },
+    deleteRequest: function (requestUser, loggedUser, requestId, floating = true) {
+        if (requestUser._id.toString() == loggedUser._id.toString()) {
+          if (floating) {
+            return `<a href="/stories/edit/${requestId}" class="btn-floating halfway-fab blue"><i class="fas fa-edit fa-small"></i></a>`
+          } else {
+            return `<a href="/stories/edit/${requestId}"><i class="fas fa-edit"></i></a>`
+          }
+        } else {
+          return ''
+        }
     }
 }

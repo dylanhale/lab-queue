@@ -10,7 +10,7 @@ module.exports = {
 
     ensureUser: function (req, res, next) {
         if(req.isAuthenticated()){
-            res.redirect('/dashboard')
+            res.redirect('/NorthQueue')
         }
         else{
             return next()
@@ -22,7 +22,7 @@ module.exports = {
             return next()
         }
         else{
-            res.redirect('/dashboard')
+            res.redirect('/NorthQueue')
         }
     },
 
@@ -31,7 +31,7 @@ module.exports = {
             return next()
         }
         else{
-            res.redirect('/dashboard')
+            res.redirect('/NorthQueue')
         }
     }
 }

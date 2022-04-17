@@ -1,28 +1,31 @@
-<h6>Admin Panel</h6>
-<h3>Welcome {{name}}</h3>
-<p>Stories?</p>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-{{#if queue}}
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each queue}}
-                <tr>
-                    <td><a href="/queue/{{_id}}">{{title}}</a></td>
-                    <td>{{createdAt}}</td>
-                    <td><span class="dash-status">{{status}}</span></td>
-                    <td></td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
-{{else}}
-    <p>You have nothing</p>
-{{/if}}
+<div class="row">
+    <div class="adminColumn">
+        <div class="card">
+            <h2>Admin Control Panel</h2>
+
+            <form action="/grades" method="POST" id="delete-form">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="deleteRequest" class="btn red darken-4">
+                    <h6 for="deleteRequest">Delete all Grades</h6>
+                </button>
+            </form>
+            <form action="/HelpRequestNorth" method="POST" id="delete-form">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="deleteRequest" class="btn red darken-4">
+                    <h6 for="deleteRequest">Delete all North Help Requests</h6>
+                </button>
+            </form>
+            <form action="/HelpRequestSouth" method="POST" id="delete-form">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="deleteRequest" class="btn red darken-4">
+                    <h6 for="deleteRequest">Delete all South Help Requests</h6>
+                </button>
+            </form>
+
+            <h6>Adler Lab Queue</h6>
+        </div>
+    </div>
+</div>

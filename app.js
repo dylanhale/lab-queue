@@ -10,12 +10,11 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const methodOverride = require('method-override')
 
-
-dotenv.config({ path: './config/config.env'})
-
 //Passport config
+dotenv.config({ path: './config/config.env'})
 require('./config/passport')(passport)
 
+//Connect to Database
 dbConnect()
 
 const app = express()
@@ -34,13 +33,13 @@ app.use(methodOverride(function (req, res) {
   }
 }))
 
-//Morgan Logging for dev
+//Logging in Dev Mode
 if(process.env.NODE_ENV === 'development'){
   app.use(morgan('dev'))
 }
 
 //Handlebars Helpers
-const { formatDate, stripTags, truncate, editIcon, select, gradeRequest } = require('./helpers/hbs')
+const { formatDate, select, deleteRequest } = require('./helpers/hbs')
 
 //Handlebars
 app.engine(
@@ -48,11 +47,8 @@ app.engine(
   exphbs.engine({ 
     helpers: {
       formatDate,
-      stripTags,
-      truncate,
-      editIcon,
       select,
-      gradeRequest
+      deleteRequest
     }, 
     defaultLayout: 'main', 
     extname: '.hbs'
@@ -79,7 +75,6 @@ app.use(function (req, res, next) {
   next()
 })
 
-//Static folder
 app.use(express.static(path.join(__dirname, 'public')))
 
 //Routing

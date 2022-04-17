@@ -11,12 +11,14 @@ Senior project
     <li>April - Full Database and Google OAuth Implementation</li>
     <li>April - Queue Views feature complete</li>
 </ul>
+
 ## Future Development
 <ul>
 <li>April - Grade Portal Implementation</li>
 <li>April - Admin Panel? Implementation</li>
 <li>May - Product Delivery</li>
 </ul>
+
 ## Sources Used in the development of the project
 <ul>
     <li>https://www.w3schools.com/w3css/w3css_modal.asp</li>

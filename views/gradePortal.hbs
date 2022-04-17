@@ -1,39 +1,89 @@
-<h6>DASHBOARD</h6>
-<h3>Welcome {{name}}</h3>
-<p>Stories?</p>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-{{#if queue}}
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each queue}}
-                <tr>
-                    <td><a href="/queue/{{_id}}">{{title}}</a></td>
-                    <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
-                    <td><span class="dash-status">{{status}}</span></td>
-                    <td>
-                        <a href="/stories/edit/{{_id}}" class="btn btn-float">
-                            <i class="fas fa-edit"></i>
-                        </a>
+<div class="row">
+    <div class="inputColumn">
+        <div class="card">
+            <h4>Grade Portal</h4>
+            {{!-- Grade Request Button sends to DB with attribute 'grade'
+            <form action="/gradePortal/grades" method="GET" class="col s12">
+                <div class="col">
+                    <div class="input-field">
+                        <select id="courseNumber" name="courseId">
+                            <option value="111" id="courseId" name="courseId">111</option>
+                            <option value="112" id="courseId" name="courseId">112</option>
+                            <option value="211" id="courseId" name="courseId">211</option>
+                        </select>
+                        <label for="courseNumber">Course</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-field">
+                        <select id="labSection" name="section">
+                            <option value="1" id="section" name="section">1</option>
+                            <option value="2" id="section" name="section">2</option>
+                            <option value="3" id="section" name="section">3</option>
+                            <option value="4" id="section" name="section">4</option>
+                            <option value="5" id="section" name="section">5</option>
+                            <option value="6" id="section" name="section">6</option>
+                        </select>
+                        <label for="test">Lab Section</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="hidden" value="1" id="section" name="section">
+                    <input type="submit" value="Non Functional" class="btn green">
+                </div>
+            </form> --}}
 
-                        <form action="/stories/{{_id}}" method="POST" id="delete-form">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn red">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
-{{else}}
-    <p>You have nothing</p>
-{{/if}}
+            <form action="/gradePortal/111" method="GET" class="col s12">
+                <div class="row">
+                    <input type="hidden" id="sections" name="sections" value="1">
+                    <input type="submit" value="CSCI 111" class="btn green">
+                </div>
+            </form>
+            <form action="/gradePortal/112" method="GET" class="col s12">
+                <div class="row">
+                    <input type="hidden" id="sections" name="sections" value="1">
+                    <input type="submit" value="CSCI 112" class="btn green">
+                </div>
+            </form>
+            <form action="/gradePortal/211" method="GET" class="col s12">
+                <div class="row">
+                    <input type="hidden" id="sections" name="sections" value="1">
+                    <input type="submit" value="CSCI 211" class="btn green">
+                </div>
+            </form>
+
+            <h6>Adler Lab Queue</h6>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Date Submitted</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Section</th>
+                        <th>Grader</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each grades}}
+                        <tr>
+                            <td>{{formatDate dateSubmitted 'MM-D-YYYY: hh:mm a'}}</td>
+                            <td>{{studentName}}</td>
+                            <td>{{courseNumber}}</td>
+                            <td>{{section}}</td>
+                            <td>{{taGrader}}</td>
+                            <td>{{labGrade}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

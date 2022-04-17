@@ -1,13 +1,19 @@
-<h3>Adler North Queue</h3>
+<div class="row">
+    <div class="row center">
+        <h3>Adler North Queue</h3>
+        <button class="btn grey darken-3"><a href="/NorthQueue">Adler North</a></button>
+        <button class="btn grey darken-3"><a href="/SouthQueue">Adler South</a></button>
+    </div>
+</div>
 
 {{!-- Modal modified from template from https://www.w3schools.com/w3css/w3css_modal.asp --}}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <div class="row">
-    <div class="column">
+    <div class="inputColumn">
         <div class="card">
-            <h4>{{fullName}}</h4>
+            <h4>Welcome {{fullName}}</h4>
             {{!-- Help Request Button sends to DB with attribute 'help' --}}
             <form action="/HelpRequestNorth" method="POST" class="col s12">
                 <div class="row">
@@ -50,6 +56,7 @@
                         <th>Name</th>
                         <th>Date</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,91 +66,97 @@
                             <td>{{studentName}}</td>
                             <td>{{formatDate dateSubmitted 'h:mm:ss a'}}</td>
                             <td>
-                                <form action="/HelpRequestNorth/{{_id}}" method="POST" id="delete-form">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="deleteRequest" class="btn red btn-delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                                {{#if isGradeRequest}}
-                                    <div class="w3-container">
-                                        <button onclick="document.getElementById('id01').style.display='block'" class="btn green btn-grade">
-                                            <i class="fas fa-check"></i>
+                                {{#if ../isTA}}
+                                    <form action="/HelpRequestNorth/{{_id}}" method="POST" id="delete-form">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="deleteRequest" class="btn red btn-delete">
+                                            <i class="fas fa-trash"></i>
                                         </button>
-                                        <div id="id01" class="w3-modal">
-                                            <div class="w3-modal-content w3-card-4">
-                                            <header class="w3-container w3-white"> 
-                                                <h4>Grade Input</h4>
-                                                <h6>Enter the grade information below</h6>
-                                            </header>
-                                            <div class="w3-container">
-                                                <form action="/Grades" method="POST" class="col s12">                   
-                                                    <div class="col">
+                                    </form>
+                                {{/if}}
+                            </td>
+                            <td>
+                                {{#if isGradeRequest}}
+                                        <div class="w3-container">
+                                            {{#if ../isTA}}
+                                            <button onclick="document.getElementById('id01').style.display='block'" class="btn green btn-check">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            {{/if}}
+                                            <div id="id01" class="w3-modal">
+                                                <div class="w3-modal-content w3-card-4">
+                                                <header class="w3-container w3-white"> 
+                                                    <h4>Grade Input</h4>
+                                                    <h6>Enter the grade information below</h6>
+                                                </header>
+                                                <div class="w3-container">
+                                                    <form action="/Grades" method="POST" class="col s12">                   
                                                         <div class="col">
-                                                            <div class="input-field">
-                                                                <select id="courseNumber" name="courseNumber">
-                                                                    <option value="111" id="courseNumber" name="courseNumber">111</option>
-                                                                    <option value="112" id="courseNumber" name="courseNumber">112</option>
-                                                                    <option value="211" id="courseNumber" name="courseNumber">211</option>
-                                                                </select>
-                                                                <label for="courseNumber">Course</label>
+                                                            <div class="col">
+                                                                <div class="input-field">
+                                                                    <select id="courseNumber" name="courseNumber">
+                                                                        <option value="111" id="courseNumber" name="courseNumber">111</option>
+                                                                        <option value="112" id="courseNumber" name="courseNumber">112</option>
+                                                                        <option value="211" id="courseNumber" name="courseNumber">211</option>
+                                                                    </select>
+                                                                    <label for="courseNumber">Course</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="input-field">
+                                                                    <select id="labSection" name="section">
+                                                                        <option value="1" id="section" name="section">1</option>
+                                                                        <option value="2" id="section" name="section">2</option>
+                                                                        <option value="3" id="section" name="section">3</option>
+                                                                        <option value="4" id="section" name="section">4</option>
+                                                                        <option value="5" id="section" name="section">5</option>
+                                                                        <option value="6" id="section" name="section">6</option>
+                                                                    </select>
+                                                                    <label for="test">Lab Section</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="input-field">
+                                                                    <select id="labGrade" name="labGrade">
+                                                                        <option value="1" id="labGrade" name="labGrade">1</option>
+                                                                        <option value="2" id="labGrade" name="labGrade">2</option>
+                                                                        <option value="3" id="labGrade" name="labGrade">3</option>
+                                                                        <option value="4" id="labGrade" name="labGrade">4</option>
+                                                                        <option value="5" id="labGrade" name="labGrade">5</option>
+                                                                        <option value="6" id="labGrade" name="labGrade">6</option>
+                                                                        <option value="7" id="labGrade" name="labGrade">7</option>
+                                                                        <option value="8" id="labGrade" name="labGrade">8</option>
+                                                                        <option value="9" id="labGrade" name="labGrade">9</option>
+                                                                        <option value="10" id="labGrade" name="labGrade">10</option>
+                                                                    </select>
+                                                                    <label for="labGrade">Grade</label>
+                                                                </div>
+                                                            </div>   
+                                                            <div class="col">
+                                                                <div class="input-field">
+                                                                    <input type="text" id="taGrader" name="taGrader">
+                                                                    <label for="taGrader">Enter your name</label>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <div class="row">
+                                                            <h4> </h4>
+                                                        </div> 
                                                         <div class="col">
-                                                            <div class="input-field">
-                                                                <select id="labSection" name="section">
-                                                                    <option value="1" id="section" name="section">1</option>
-                                                                    <option value="2" id="section" name="section">2</option>
-                                                                    <option value="3" id="section" name="section">3</option>
-                                                                    <option value="4" id="section" name="section">4</option>
-                                                                    <option value="5" id="section" name="section">5</option>
-                                                                    <option value="6" id="section" name="section">6</option>
-                                                                </select>
-                                                                <label for="test">Lab Section</label>
-                                                            </div>
+                                                            <input type="button" onclick="document.getElementById('id01').style.display='none'" value="Cancel" class="btn red btn-grade">
                                                         </div>
-                                                        <div class="col">
-                                                            <div class="input-field">
-                                                                <select id="labGrade" name="labGrade">
-                                                                    <option value="1" id="labGrade" name="labGrade">1</option>
-                                                                    <option value="2" id="labGrade" name="labGrade">2</option>
-                                                                    <option value="3" id="labGrade" name="labGrade">3</option>
-                                                                    <option value="4" id="labGrade" name="labGrade">4</option>
-                                                                    <option value="5" id="labGrade" name="labGrade">5</option>
-                                                                    <option value="6" id="labGrade" name="labGrade">6</option>
-                                                                    <option value="7" id="labGrade" name="labGrade">7</option>
-                                                                    <option value="8" id="labGrade" name="labGrade">8</option>
-                                                                    <option value="9" id="labGrade" name="labGrade">9</option>
-                                                                    <option value="10" id="labGrade" name="labGrade">10</option>
-                                                                </select>
-                                                                <label for="labGrade">Grade</label>
-                                                            </div>
-                                                        </div>   
-                                                        <div class="col">
-                                                            <div class="input-field">
-                                                                <input type="text" id="taGrader" name="taGrader">
-                                                                <label for="taGrader">Enter your name</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <h4> </h4>
-                                                    </div> 
-                                                    <div class="col">
-                                                        <input type="button" onclick="document.getElementById('id01').style.display='none'" value="Cancel" class="btn red btn-grade">
-                                                    </div>
-                                                    <div class="row">
-                                                        <input type="hidden" id="studentName" name="studentName" value="{{studentName}}">
-                                                        <input type="submit" value="Submit" class="btn green btn-grade">
-                                                    </div> 
-                                                </form>
-                                            </div>
-                                            <footer class="w3-container w3-white">
-                                                <h6> </h6>
-                                            </footer>
+                                                        <div class="row">
+                                                            <input type="hidden" id="studentName" name="studentName" value="{{studentName}}">
+                                                            <input type="submit" value="Submit" class="btn green btn-grade">
+                                                        </div> 
+                                                    </form>
+                                                </div>
+                                                <footer class="w3-container w3-white">
+                                                    <h6> </h6>
+                                                </footer>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 {{/if}}
                             </td>
                         </tr>
