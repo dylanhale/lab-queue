@@ -127,7 +127,7 @@ router.post('/HelpRequestSouth', ensureAuth, async (req, res) => {
 router.post('/Grades', ensureAuth, async (req, res) => {
     try {
         await GradeScheme.create(req.body)
-        await HelpRequestNorth.deleteOne({_userId: req.id })
+        await HelpRequestNorth.deleteOne({userId: req.id })
         res.redirect('/NorthQueue')
     } catch (error) {
         console.error(error)

@@ -134,7 +134,7 @@
                                                             </div>   
                                                             <div class="col">
                                                                 <div class="input-field">
-                                                                    <input type="text" id="taGrader" name="taGrader">
+                                                                    <input type="text" id="taGrader" name="taGrader" value="{{../fullName}}">
                                                                     <label for="taGrader">Enter your name</label>
                                                                 </div>
                                                             </div>
@@ -147,6 +147,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <input type="hidden" id="studentName" name="studentName" value="{{studentName}}">
+                                                            <input type="hidden" id="googleId" name="googleId" value="{{../googleId}}">
                                                             <input type="submit" value="Submit" class="btn green btn-grade">
                                                         </div> 
                                                     </form>

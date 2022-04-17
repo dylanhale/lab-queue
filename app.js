@@ -82,7 +82,7 @@ app.use('/', require('./routing/index'))
 app.use('/auth', require('./routing/auth'))
 
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT
 
 app.listen(
   PORT,
