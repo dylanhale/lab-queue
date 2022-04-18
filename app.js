@@ -9,46 +9,41 @@ const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const methodOverride = require('method-override')
-
-//Passport config
 dotenv.config({ path: './config/config.env'})
 require('./config/passport')(passport)
 
 //Connect to Database
 dbConnect()
 
+//Express Init
 const app = express()
-
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 
-//Method Override
+//Method Override Function to ensure a DELETE submits
 app.use(methodOverride(function (req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-    // look in urlencoded POST bodies and delete it
     let method = req.body._method
     delete req.body._method
     return method
   }
 }))
 
-//Logging in Dev Mode
+//Dev Mode Logging
 if(process.env.NODE_ENV === 'development'){
   app.use(morgan('dev'))
 }
 
-//Handlebars Helpers
-const { formatDate, select, deleteRequest } = require('./helpers/hbs')
+//Handlebar Setup
+const { formatDate, select } = require('./helpers/hbs')
 
-//Handlebars
 app.engine(
   '.hbs', 
   exphbs.engine({ 
     helpers: {
       formatDate,
-      select,
-      deleteRequest
+      select
     }, 
     defaultLayout: 'main', 
     extname: '.hbs'
@@ -57,19 +52,19 @@ app.engine(
 
 app.set('view engine', '.hbs')
 
-//Session
+//Sessions to keep user logged in after closing site
 app.use(session({
-  secret: 'keyboard cat',
+  secret: 'piano dog',
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-//Passport middleware
+//Passport Init
 app.use(passport.initialize())
 app.use(passport.session())
 
-//Set global var
+//Global User Variable
 app.use(function (req, res, next) {
   res.locals.user = req.user || null
   next()
@@ -77,13 +72,15 @@ app.use(function (req, res, next) {
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-//Routing
+//Site Routes
 app.use('/', require('./routing/index'))
 app.use('/auth', require('./routing/auth'))
+app.use('/gradePortal', require('./routing/gradeLookup'))
 
-
+//Set PORT Number
 const PORT = process.env.PORT
 
+//Listener for Logging purposes
 app.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)

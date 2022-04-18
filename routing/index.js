@@ -6,14 +6,16 @@ const HelpRequestNorth = require('../models/HelpRequestNorth')
 const GradeScheme = require('../models/Grades')
 const HelpRequestSouth = require('../models/HelpRequestSouth')
 
-// Login/Landing Page
-// route GET /
+//Login Page
+//route GET /
 router.get('/', ensureUser, (req, res) => {
     res.render('login', {
         layout: 'login'
     })
 })
 
+//Admin Page with Admin Check Protection
+//route GET /admin
 router.get('/admin', ensureAdmin, async (req, res) => {
     try {
         const admin = await Queue.find({ user: req.user.admin }).lean()
@@ -28,6 +30,8 @@ router.get('/admin', ensureAdmin, async (req, res) => {
     }
 })
 
+//North Lab Queue
+//route GET /NorthQueue
 router.get('/NorthQueue', ensureAuth, async (req, res) => {
     try {
         const helpRequests = await HelpRequestNorth.find({ user: req.userId }).lean()
@@ -48,6 +52,8 @@ router.get('/NorthQueue', ensureAuth, async (req, res) => {
     }
 })
 
+//South Lab Queue
+//route GET /SouthQueue
 router.get('/SouthQueue', ensureAuth, async (req, res) => {
     try {
         const helpRequests = await HelpRequestSouth.find({ user: req.userId }).lean()
@@ -68,17 +74,7 @@ router.get('/SouthQueue', ensureAuth, async (req, res) => {
     }
 })
 
-router.get('/gradePortal', ensureTa, async (req, res) => {
-    try {
-        const grades = await GradeScheme.find({ courseNumber: { $in: ['111', '112', '211'] }  }).sort({ dateSubmitted: 'asc' }).lean()
-        res.render('gradePortal', { })
-    } catch (error) {
-        console.error(error)
-        res.render('error/500')
-    }
-})
-
-//Add Help Request
+//Add North Queue Help Request
 //route POST /NorthQueue
 router.post('/HelpRequestNorth', ensureAuth, async (req, res) => {
     try {
@@ -91,7 +87,7 @@ router.post('/HelpRequestNorth', ensureAuth, async (req, res) => {
     } 
  })
 
-//Delete Help Request
+//Delete North Queue Help Request
 //route DELETE /HelpRequestNorth
 router.delete('/HelpRequestNorth/:id', ensureAuth, async (req, res) => {
     try {
@@ -103,6 +99,8 @@ router.delete('/HelpRequestNorth/:id', ensureAuth, async (req, res) => {
     }
 })
 
+//Add South Queue Help Request
+//route POST /SouthQueue
 router.post('/HelpRequestSouth', ensureAuth, async (req, res) => {
     try {
         req.body.user = req.user.id
@@ -114,7 +112,9 @@ router.post('/HelpRequestSouth', ensureAuth, async (req, res) => {
     } 
 })
 
- router.delete('/HelpRequestSouth/:id', ensureAuth, async (req, res) => {
+//Delete South Queue Help Request
+//route DELETE /HelpRequestSouth
+router.delete('/HelpRequestSouth/:id', ensureAuth, async (req, res) => {
     try {
         await HelpRequestSouth.remove({_id: req.params.id })
         res.redirect('/SouthQueue')
@@ -124,7 +124,9 @@ router.post('/HelpRequestSouth', ensureAuth, async (req, res) => {
     }
 })
 
-router.post('/Grades', ensureAuth, async (req, res) => {
+//Post Grade from Adler North and Delete Request
+//route POST /grades
+router.post('/Grades/North', ensureTa, async (req, res) => {
     try {
         await GradeScheme.create(req.body)
         await HelpRequestNorth.deleteOne({userId: req.id })
@@ -135,44 +137,17 @@ router.post('/Grades', ensureAuth, async (req, res) => {
     } 
 })
 
-
-
-//Routes for searching in the Grade Portal
-//Cannot get param to pass from gradePortal so each search requires their own route
-router.get('/gradePortal/111', ensureTa, async (req, res) => {
+//Post Grade from Adler South and Delete Request
+//route POST /grades
+router.post('/Grades/South', ensureTa, async (req, res) => {
     try {
-        const grades = await GradeScheme.find({ courseNumber: '111' }).lean()
-        res.render('gradePortal', {
-            grades
-        })
+        await GradeScheme.create(req.body)
+        await HelpRequestSouth.deleteOne({userId: req.id })
+        res.redirect('/SouthQueue')
     } catch (error) {
         console.error(error)
         res.render('error/500')
-    }
-})
-
-router.get('/gradePortal/112', ensureTa, async (req, res) => {
-    try {
-        const grades = await GradeScheme.find({ courseNumber: '112' }).lean()
-        res.render('gradePortal', {
-            grades
-        })
-    } catch (error) {
-        console.error(error)
-        res.render('error/500')
-    }
-})
-
-router.get('/gradePortal/211', ensureTa, async (req, res) => {
-    try {
-        const grades = await GradeScheme.find({ courseNumber: '211' }).lean()
-        res.render('gradePortal', {
-            grades
-        })
-    } catch (error) {
-        console.error(error)
-        res.render('error/500')
-    }
+    } 
 })
 
 //Delete All Recorded Grades
@@ -210,6 +185,5 @@ router.delete('/HelpRequestSouth', ensureAdmin, async (req, res) => {
         return res.render('error/500')
     }
 })
-
 
 module.exports = router

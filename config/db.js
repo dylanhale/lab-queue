@@ -7,8 +7,7 @@ const dbConnect = async () => {
             useUnifiedTopology: true,
             useFindAndModify: false
         })
-
-        console.log(`MongoDB Connected: ${connection.connection.host}`)
+        console.log(`Database Connected at: ${connection.connection.host}`)
     } catch (error) {
         console.error(error)
     }

@@ -1,3 +1,8 @@
+<head>
+    {{!-- Reload site every 30 seconds // This is a workaround instead of implenting a websocket --}}
+    <meta http-equiv="refresh" content="30">
+</head>
+
 <div class="row">
     <div class="row center">
         <h3>Adler South Queue</h3>
@@ -5,6 +10,7 @@
         <button class="btn grey darken-3"><a href="/SouthQueue">Adler South</a></button>
     </div>
 </div>
+
 {{!-- Modal modified from template from https://www.w3schools.com/w3css/w3css_modal.asp --}}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -89,7 +95,7 @@
                                                 <h6>Enter the grade information below</h6>
                                             </header>
                                             <div class="w3-container">
-                                                <form action="/Grades" method="POST" class="col s12">                   
+                                                <form action="/Grades/South" method="POST" class="col s12">                   
                                                     <div class="col">
                                                         <div class="col">
                                                             <div class="input-field">
@@ -110,6 +116,8 @@
                                                                     <option value="4" id="section" name="section">4</option>
                                                                     <option value="5" id="section" name="section">5</option>
                                                                     <option value="6" id="section" name="section">6</option>
+                                                                    <option value="7" id="section" name="section">7</option>
+                                                                    <option value="8" id="section" name="section">8</option>
                                                                 </select>
                                                                 <label for="test">Lab Section</label>
                                                             </div>

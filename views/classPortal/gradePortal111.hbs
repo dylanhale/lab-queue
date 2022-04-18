@@ -1,0 +1,83 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<div class="row">
+    <div class="inputColumn">
+        <div class="card">
+            <button class="btn grey darken-3"><a href="/gradePortal">Return</a></button>
+            <h4>CSCI 111 Grades</h4>
+            <p>Select Section Below</p>
+
+            <form action="/gradePortal/111/1" method="GET" class="col s12">
+                <div class="row">
+                    <input type="submit" value="Section 1" class="btn blue darken-3">
+                </div>
+            </form>
+            <form action="/gradePortal/111/2" method="GET" class="col s12">
+                <div class="row">
+                    <input type="submit" value="Section 2" class="btn blue darken-3">
+                </div>
+            </form>
+            <form action="/gradePortal/111/3" method="GET" class="col s12">
+                <div class="row">
+                    <input type="submit" value="Section 3" class="btn blue darken-3">
+                </div>
+            </form>
+            <form action="/gradePortal/111/4" method="GET" class="col s12">
+                <div class="row">
+                    <input type="submit" value="Section 4" class="btn blue darken-3">
+                </div>
+            </form>
+            <form action="/gradePortal/111/5" method="GET" class="col s12">
+                <div class="row">
+                    <input type="submit" value="Section 5" class="btn blue darken-3">
+                </div>
+            </form>
+            <form action="/gradePortal/111/6" method="GET" class="col s12">
+                <div class="row">
+                    <input type="submit" value="Section 6" class="btn blue darken-3">
+                </div>
+            </form>
+            <form action="/gradePortal/111/7" method="GET" class="col s12">
+                <div class="row">
+                    <input type="submit" value="Section 7" class="btn blue darken-3">
+                </div>
+            </form>
+            <form action="/gradePortal/111/8" method="GET" class="col s12">
+                <div class="row">
+                    <input type="submit" value="Section 8" class="btn blue darken-3">
+                </div>
+            </form>
+            
+            <h6>Adler Lab Queue</h6>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date Submitted</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Section</th>
+                        <th>Grader</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each grades}}
+                        <tr>
+                            <td>{{formatDate dateSubmitted 'MM-D-YYYY: hh:mm a'}}</td>
+                            <td>{{studentName}}</td>
+                            <td>{{courseNumber}}</td>
+                            <td>{{section}}</td>
+                            <td>{{taGrader}}</td>
+                            <td>{{labGrade}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
