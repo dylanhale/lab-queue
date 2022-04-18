@@ -20,7 +20,6 @@ const GradeScheme = new mongoose.Schema({
     },
     taGrader:{
         type: String,
-        enum: ["Dylan Hale", "Jeff Lucas", "Sam Barnard", "Briana Berger", "Connor Beach", "Kenston Tran", "Landon Perkins", "Lori Nichols", "Olivia Columber", "Roman Fisher", "Soumil Datta", "Taylor Glover", "Will Amminger"],
         required: true
     },
     section:{

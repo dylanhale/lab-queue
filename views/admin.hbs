@@ -24,8 +24,50 @@
                     <h6 for="deleteRequest">Delete all South Help Requests</h6>
                 </button>
             </form>
+            <h6>Admin Controls</h6>
+        </div>
+    </div>
+    <div class="adminColumn">
+        <div class="card">
+            <h2>Add Teaching Assistants</h2>
+            <form action="/admin" method="POST" class="col s12">
+                <div class="row">
+                    <div class="input-field">
+                    <input type="text" id="taName" name="taName">
+                    <label for="taName">Enter name to add to TA List</label>
+                </div>
+                </div>
+                <div class="row">
+                    <input type="submit" value="Add TA" class="btn green">
+                </div>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>TA Name</th>
+                        <th>Date Added</th>
+                        <th>Remove TA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each taNames}}
+                        <tr>
+                            <td>{{taName}}</td>
+                            <td>{{formatDate dateAdded 'h:mm:ss a'}}</td>
+                            <td> 
+                                <form action="/admin/{{_id}}" method="POST" id="delete-form">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="deleteRequest" class="btn red btn-delete">
+                                        <a>Delete TA</a>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
 
-            <h6>Adler Lab Queue</h6>
+            <h6>TA Names</h6>
         </div>
     </div>
 </div>

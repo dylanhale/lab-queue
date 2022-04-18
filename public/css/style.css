@@ -108,11 +108,8 @@ body {
 
 .adminColumn {
     float: left;
-    width: 100%;
-    padding: 10px 10px;
-    padding-top: 50px;
-    padding-left: 400px;
-    padding-right: 400px;
+    width: 50%;
+    padding: 0 10px;
 }
   
 /* Remove extra left and right margins, due to padding */

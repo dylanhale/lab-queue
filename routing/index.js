@@ -5,6 +5,7 @@ const Queue = require('../models/Queue')
 const HelpRequestNorth = require('../models/HelpRequestNorth')
 const GradeScheme = require('../models/Grades')
 const HelpRequestSouth = require('../models/HelpRequestSouth')
+const TAGradersSchema = require('../models/TAGraders')
 
 //Login Page
 //route GET /
@@ -19,9 +20,11 @@ router.get('/', ensureUser, (req, res) => {
 router.get('/admin', ensureAdmin, async (req, res) => {
     try {
         const admin = await Queue.find({ user: req.user.admin }).lean()
+        const taNames = await TAGradersSchema.find({}).lean()
         res.render('Admin', {
             name: req.user.firstName,
             mod: req.user.admin,
+            taNames,
             admin
         })
     } catch (error) {
@@ -36,13 +39,15 @@ router.get('/NorthQueue', ensureAuth, async (req, res) => {
     try {
         const helpRequests = await HelpRequestNorth.find({ user: req.userId }).lean()
         const grades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        const taNames = await TAGradersSchema.find({}).lean()
         res.render('NorthQueue', {
             name: req.user.firstName,
             fullName: req.user.displayName,
             userImage: req.user.image,
             googleId: req.user.googleId,
             isGradeRequest: req.isGradeRequest,
-            isTA: req.user.isTA, 
+            isTA: req.user.isTA,
+            taNames, 
             grades,
             helpRequests
         })
@@ -58,6 +63,7 @@ router.get('/SouthQueue', ensureAuth, async (req, res) => {
     try {
         const helpRequests = await HelpRequestSouth.find({ user: req.userId }).lean()
         const Numgrades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        const taNames = await TAGradersSchema.find({}).lean()
         res.render('SouthQueue', {
             name: req.user.firstName,
             fullName: req.user.displayName,
@@ -65,6 +71,7 @@ router.get('/SouthQueue', ensureAuth, async (req, res) => {
             googleId: req.user.googleId,
             isGradeRequest: req.isGradeRequest,
             isTA: req.user.isTA,
+            taNames,
             Numgrades,
             helpRequests
         })
@@ -185,5 +192,26 @@ router.delete('/HelpRequestSouth', ensureAdmin, async (req, res) => {
         return res.render('error/500')
     }
 })
+
+router.delete('/admin/:id', ensureAuth, async (req, res) => {
+    try {
+        await TAGradersSchema.remove({_id: req.params.id })
+        res.redirect('/admin')
+    } catch (error) {
+        console.error(error)
+        return res.render('error/500')
+    }
+})
+
+router.post('/admin', ensureAdmin, async (req, res) => {
+    try {
+        await TAGradersSchema.create(req.body)
+        res.redirect('/admin')
+    } catch (error) {
+        console.error(error)
+        res.render('error/500')
+    } 
+})
+
 
 module.exports = router

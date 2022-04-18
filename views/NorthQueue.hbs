@@ -138,11 +138,15 @@
                                                                     </select>
                                                                     <label for="labGrade">Grade</label>
                                                                 </div>
-                                                            </div>   
+                                                            </div>
                                                             <div class="col">
                                                                 <div class="input-field">
-                                                                    <input type="text" id="taGrader" name="taGrader" value="{{../fullName}}">
-                                                                    <label for="taGrader">Enter your name</label>
+                                                                    <select id="taGrader" name="taGrader">
+                                                                        {{#each ../taNames}}
+                                                                        <option value="{{taName}}" id="taGrader" name="taGrader">{{taName}}</option>
+                                                                        {{/each}}
+                                                                    </select>
+                                                                    <label for="taGrader">TA Name</label>
                                                                 </div>
                                                             </div>
                                                         </div>
