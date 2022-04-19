@@ -16,42 +16,91 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <div class="row">
-    <div class="inputColumn">
+    {{#if isAdmin}}
+        <div class="inputColumn">
         <div class="card">
             <h4>Welcome {{fullName}}</h4>
+            <p> </p>
             {{!-- Help Request Button sends to DB with attribute 'help' --}}
-            <form action="/HelpRequestSouth" method="POST" class="col s12">
+            <form>
                 <div class="row">
                     <div class="input-field">
-                        <input type="hidden" id="studentName" name="studentName" value="{{fullName}}">
-                        <input type="hidden" id="googleId" name="googleId" value="{{googleId}}">
                     </div>
                 </div>
-
                 <div class="row">
-                    <input type="hidden" id="requestType" name="requestType" value="Help">
-                    <input type="hidden" id="isGradeRequest" name="isGradeRequest" value="false">
-                    <input type="submit" value="Help Request" class="btn">
+                    <button class="btn grey darken-3"><a href="/gradePortal">Go To Grade Portal</a></button>
                 </div>
             </form>
-
-            {{!-- Grade Request Button sends to DB with attribute 'grade' --}}
-            <form action="/HelpRequestSouth" method="POST" class="col s12">
+            <form>
                 <div class="row">
                     <div class="input-field">
-                        <input type="hidden" id="studentName" name="studentName" value="{{fullName}}">
-                        <input type="hidden" id="googleId" name="googleId" value="{{googleId}}">
                     </div>
                 </div>
                 <div class="row">
-                    <input type="hidden" id="requestType" name="requestType" value="Grade">
-                    <input type="hidden" id="isGradeRequest" name="isGradeRequest" value="true">
-                    <input type="submit" value="Grade Request" class="btn green">
+                    <button class="btn grey darken-3"><a href="/admin">Go To Admin Panel</a></button>
                 </div>
             </form>
             <h6>Adler Lab Queue</h6>
         </div>
     </div>
+    {{else}}
+        {{#if isTA}}
+            <div class="inputColumn">
+                <div class="card">
+                    <h4>Welcome {{fullName}}</h4>
+                    <p> </p>
+                    {{!-- Help Request Button sends to DB with attribute 'help' --}}
+                    <form>
+                        <div class="row">
+                            <div class="input-field">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="btn grey darken-3"><a href="/gradePortal">Go To Grade Portal</a></button>
+                        </div>
+                    </form>
+                    <h6>Adler Lab Queue</h6>
+                </div>
+            </div>
+        {{else}}
+            <div class="inputColumn">
+            <div class="card">
+                <h4>Welcome {{fullName}}</h4>
+                {{!-- Help Request Button sends to DB with attribute 'help' --}}
+                <form action="/HelpRequestNorth" method="POST" class="col s12">
+                    <div class="row">
+                        <div class="input-field">
+                            <input type="hidden" id="studentName" name="studentName" value="{{fullName}}">
+                            <input type="hidden" id="googleId" name="googleId" value="{{googleId}}">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <input type="hidden" id="requestType" name="requestType" value="Help">
+                        <input type="hidden" id="isGradeRequest" name="isGradeRequest" value="false">
+                        <input type="submit" value="Help Request" class="btn">
+                    </div>
+                </form>
+
+                {{!-- Grade Request Button sends to DB with attribute 'grade' --}}
+                <form action="/HelpRequestNorth" method="POST" class="col s12">
+                    <div class="row">
+                        <div class="input-field">
+                            <input type="hidden" id="studentName" name="studentName" value="{{fullName}}">
+                            <input type="hidden" id="googleId" name="googleId" value="{{googleId}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="hidden" id="requestType" name="requestType" value="Grade">
+                        <input type="hidden" id="isGradeRequest" name="isGradeRequest" value="true">
+                        <input type="submit" value="Grade Request" class="btn green">
+                    </div>
+                </form>
+                <h6>Adler Lab Queue</h6>
+            </div>
+        </div>
+        {{/if}}        
+    {{/if}}
     <div class="column">
         <div class="card">
             <table class="striped">

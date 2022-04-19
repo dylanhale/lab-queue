@@ -47,6 +47,7 @@ router.get('/NorthQueue', ensureAuth, async (req, res) => {
             googleId: req.user.googleId,
             isGradeRequest: req.isGradeRequest,
             isTA: req.user.isTA,
+            isAdmin: req.user.isAdmin,
             taNames, 
             grades,
             helpRequests
@@ -71,6 +72,7 @@ router.get('/SouthQueue', ensureAuth, async (req, res) => {
             googleId: req.user.googleId,
             isGradeRequest: req.isGradeRequest,
             isTA: req.user.isTA,
+            isAdmin: req.user.isAdmin,
             taNames,
             Numgrades,
             helpRequests
