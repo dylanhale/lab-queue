@@ -1,8 +1,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+{{!-- Empty Row Div to ensure cards are aligned properly --}}
 <div class="row">
-    <div class="adminColumn">
+    <div class="row center">
+    </div>
+</div>
+
+<div class="row">
+    <div class="adminColumn1">
         <div class="card">
             <h2>Admin Control Panel</h2>
 
@@ -27,7 +33,7 @@
             <h6>Admin Controls</h6>
         </div>
     </div>
-    <div class="adminColumn">
+    <div class="adminColumn2">
         <div class="card">
             <h2>Add Teaching Assistants</h2>
             <form action="/admin" method="POST" class="col s12">
@@ -53,7 +59,7 @@
                     {{#each taNames}}
                         <tr>
                             <td>{{taName}}</td>
-                            <td>{{formatDate dateAdded 'h:mm:ss a'}}</td>
+                            <td>{{formatDate dateAdded ' MMMM DD YYYY @ h:mm:ss a'}}</td>
                             <td> 
                                 <form action="/admin/{{_id}}" method="POST" id="delete-form">
                                     <input type="hidden" name="_method" value="DELETE">

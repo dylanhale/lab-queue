@@ -51,6 +51,15 @@ input.radio:empty {
     padding-bottom: 30px;
 }
 
+.btn-labCheck{
+    padding: auto;
+}
+
+.btn-queueDelete{
+    padding: auto;
+    margin-top: 15px;
+}
+
 .demo {
     margin: 60px auto;
 }
@@ -106,12 +115,18 @@ body {
     padding: 0 10px;
 }
 
-.adminColumn {
+.adminColumn1 {
     float: left;
-    width: 50%;
+    width: 30%;
     padding: 0 10px;
 }
-  
+
+.adminColumn2 {
+    float: left;
+    width: 70%;
+    padding: 0 10px;
+}
+
 /* Remove extra left and right margins, due to padding */
 .row {margin: 0 -5px;}
   

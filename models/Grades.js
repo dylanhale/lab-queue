@@ -33,6 +33,11 @@ const GradeScheme = new mongoose.Schema({
         default: 111,
         enum: [111, 112, 211],
         required: true
+    },
+    helpRequestID:{
+        type: String,
+        default: HelpRequestNorth._id,
+        required: true
     }
 })
 

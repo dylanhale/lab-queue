@@ -138,7 +138,8 @@ router.delete('/HelpRequestSouth/:id', ensureAuth, async (req, res) => {
 router.post('/Grades/North', ensureTa, async (req, res) => {
     try {
         await GradeScheme.create(req.body)
-        await HelpRequestNorth.deleteOne({userId: req.id })
+        await HelpRequestNorth.deleteOne({ _id: req.body.helpRequestID })
+        const tester = await HelpRequestNorth.find({ })
         res.redirect('/NorthQueue')
     } catch (error) {
         console.error(error)
@@ -151,7 +152,7 @@ router.post('/Grades/North', ensureTa, async (req, res) => {
 router.post('/Grades/South', ensureTa, async (req, res) => {
     try {
         await GradeScheme.create(req.body)
-        await HelpRequestSouth.deleteOne({userId: req.id })
+        await HelpRequestSouth.deleteOne({ _id: req.body.helpRequestID })
         res.redirect('/SouthQueue')
     } catch (error) {
         console.error(error)

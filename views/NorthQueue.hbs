@@ -3,11 +3,9 @@
     <meta http-equiv="refresh" content="30">
 </head>
 
+{{!-- Empty Row Div to ensure cards are aligned properly --}}
 <div class="row">
     <div class="row center">
-        <h3>Adler North Queue</h3>
-        <button class="btn grey darken-3"><a href="/NorthQueue">Adler North</a></button>
-        <button class="btn grey darken-3"><a href="/SouthQueue">Adler South</a></button>
     </div>
 </div>
 
@@ -20,8 +18,8 @@
         <div class="inputColumn">
         <div class="card">
             <h4>Welcome {{fullName}}</h4>
-            <p> </p>
-            {{!-- Help Request Button sends to DB with attribute 'help' --}}
+            <p> You are in Adler North </p>
+            {{!-- Admin Options to go to Grade Portal and Admin Control Panel --}}
             <form>
                 <div class="row">
                     <div class="input-field">
@@ -103,7 +101,7 @@
     {{/if}}
     <div class="column">
         <div class="card">
-            <table class="striped">
+            <table>
                 <thead>
                     <tr>
                         <th>Request Type</th>
@@ -123,7 +121,7 @@
                                 {{#if ../isTA}}
                                     <form action="/HelpRequestNorth/{{_id}}" method="POST" id="delete-form">
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <button type="deleteRequest" class="btn red btn-delete">
+                                        <button type="deleteRequest" class="btn red btn-queueDelete">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -131,12 +129,13 @@
                             </td>
                             <td>
                                 {{#if isGradeRequest}}
-                                        <div class="w3-container">
+                                        
                                             {{#if ../isTA}}
-                                            <button onclick="document.getElementById('id01').style.display='block'" class="btn green btn-check">
+                                            <button onclick="document.getElementById('id01').style.display='block'" class="btn green btn-labCheck">
                                                 <i class="fas fa-check"></i>
                                             </button>
                                             {{/if}}
+                                        <div class="w3-container">
                                             <div id="id01" class="w3-modal">
                                                 <div class="w3-modal-content w3-card-4">
                                                 <header class="w3-container w3-white"> 
@@ -208,6 +207,7 @@
                                                         <div class="row">
                                                             <input type="hidden" id="studentName" name="studentName" value="{{studentName}}">
                                                             <input type="hidden" id="googleId" name="googleId" value="{{../googleId}}">
+                                                            <input type="hidden" id="helpRequestID" name="helpRequestID" value="{{./_id}}">
                                                             <input type="submit" value="Submit" class="btn green btn-grade">
                                                         </div> 
                                                     </form>
