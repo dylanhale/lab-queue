@@ -6,6 +6,7 @@ const HelpRequestNorth = require('../models/HelpRequestNorth')
 const GradeScheme = require('../models/Grades')
 const HelpRequestSouth = require('../models/HelpRequestSouth')
 const TAGradersSchema = require('../models/TAGraders')
+const UserSchema = require('../models/User')
 
 //Login Page
 //route GET /
@@ -17,11 +18,11 @@ router.get('/', ensureUser, (req, res) => {
 
 //Admin Page with Admin Check Protection
 //route GET /admin
-router.get('/admin', ensureAdmin, async (req, res) => {
+router.get('/deptPortal', ensureAdmin, async (req, res) => {
     try {
         const admin = await Queue.find({ user: req.user.admin }).lean()
         const taNames = await TAGradersSchema.find({}).lean()
-        res.render('Admin', {
+        res.render('deptPortal', {
             name: req.user.firstName,
             mod: req.user.admin,
             taNames,
@@ -165,7 +166,19 @@ router.post('/Grades/South', ensureTa, async (req, res) => {
 router.delete('/grades', ensureAdmin, async (req, res) => {
     try {
         await GradeScheme.deleteMany({})
-        res.redirect('/admin')
+        res.redirect('/deptPortal')
+    } catch (error) {
+        console.error(error)
+        return res.render('error/500')
+    }
+})
+
+//Delete All Recorded Grades
+//route DELETE /clearUsers
+router.delete('/clearUsers', ensureAdmin, async (req, res) => {
+    try {
+        await UserSchema.deleteOne({ createdAt: {$gt: Date("2022, 04, 18")}})
+        res.redirect('/deptPortal')
     } catch (error) {
         console.error(error)
         return res.render('error/500')
@@ -177,7 +190,7 @@ router.delete('/grades', ensureAdmin, async (req, res) => {
 router.delete('/HelpRequestNorth', ensureAdmin, async (req, res) => {
     try {
         await HelpRequestNorth.deleteMany({})
-        res.redirect('/admin')
+        res.redirect('/deptPortal')
     } catch (error) {
         console.error(error)
         return res.render('error/500')
@@ -189,27 +202,31 @@ router.delete('/HelpRequestNorth', ensureAdmin, async (req, res) => {
 router.delete('/HelpRequestSouth', ensureAdmin, async (req, res) => {
     try {
         await HelpRequestSouth.deleteMany({})
-        res.redirect('/admin')
+        res.redirect('/deptPortal')
     } catch (error) {
         console.error(error)
         return res.render('error/500')
     }
 })
 
-router.delete('/admin/:id', ensureAuth, async (req, res) => {
+//Delete TA from TA List
+//route DELETE /deptPortal
+router.delete('/deptPortal/:id', ensureAuth, async (req, res) => {
     try {
         await TAGradersSchema.remove({_id: req.params.id })
-        res.redirect('/admin')
+        res.redirect('/deptPortal')
     } catch (error) {
         console.error(error)
         return res.render('error/500')
     }
 })
 
-router.post('/admin', ensureAdmin, async (req, res) => {
+//Add TA to TA List
+//route POST /deptPortal
+router.post('/deptPortal', ensureAdmin, async (req, res) => {
     try {
         await TAGradersSchema.create(req.body)
-        res.redirect('/admin')
+        res.redirect('/deptPortal')
     } catch (error) {
         console.error(error)
         res.render('error/500')

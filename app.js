@@ -12,6 +12,8 @@ const methodOverride = require('method-override')
 dotenv.config({ path: './config/config.env'})
 require('./config/passport')(passport)
 
+//Modified from tutorial located at https://morioh.com/p/67cdf462489c
+
 //Connect to Database
 dbConnect()
 
@@ -78,10 +80,9 @@ app.use('/auth', require('./routing/auth'))
 app.use('/gradePortal', require('./routing/gradeLookup'))
 
 //Set PORT Number
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 //Listener for Logging purposes
-app.listen(
-  PORT,
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
-)
+app.listen(PORT, () => {
+  console.log(`Our app is running on port ${ PORT }`);
+})

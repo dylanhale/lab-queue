@@ -16,11 +16,10 @@
 <div class="row">
     {{#if isAdmin}}
         <div class="inputColumn">
-        <div class="card">
-            <h4>Welcome {{fullName}}</h4>
-            <p> You are in Adler North </p>
-            {{!-- Admin Options to go to Grade Portal and Admin Control Panel --}}
-            <form>
+            <div class="card">
+                <h4>Welcome {{fullName}}</h4>
+                <p> You are in Adler North </p>
+                {{!-- Admin Options to go to Grade Portal and Admin Control Panel --}}
                 <div class="row">
                     <div class="input-field">
                     </div>
@@ -28,42 +27,39 @@
                 <div class="row">
                     <button class="btn grey darken-3"><a href="/gradePortal">Go To Grade Portal</a></button>
                 </div>
-            </form>
-            <form>
                 <div class="row">
                     <div class="input-field">
                     </div>
                 </div>
                 <div class="row">
-                    <button class="btn grey darken-3"><a href="/admin">Go To Admin Panel</a></button>
+                    <button class="btn grey darken-3"><a href="/deptPortal">Go To Admin Panel</a></button>
                 </div>
-            </form>
-            <h6>Adler Lab Queue</h6>
+                <h6>Adler Lab Queue</h6>
+            </div>
         </div>
-    </div>
     {{else}}
         {{#if isTA}}
-            <div class="inputColumn">
+            <div class="col center">
                 <div class="card">
-                    <h4>Welcome {{fullName}}</h4>
-                    <p> </p>
-                    {{!-- Help Request Button sends to DB with attribute 'help' --}}
-                    <form>
-                        <div class="row">
-                            <div class="input-field">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <button class="btn grey darken-3"><a href="/gradePortal">Go To Grade Portal</a></button>
-                        </div>
-                    </form>
-                    <h6>Adler Lab Queue</h6>
+                    <h5>Welcome Lab TA</h5>
+                    <p>Adler North</p>
+                    {{!-- TA Options to go to Grade Portal and South Lab Queue --}}
+                    <div class="row">
+                        <button class="btn grey darken-3"><a href="/SouthQueue">Adler South</a></button>
+                    </div>
+                    <div class="row">
+                        <div class="input-field"></div>
+                    </div>
+                    <div class="row">
+                        <button class="btn grey darken-3"><a href="/gradePortal">Grade Portal</a></button>
+                    </div>
                 </div>
             </div>
         {{else}}
             <div class="inputColumn">
             <div class="card">
                 <h4>Welcome {{fullName}}</h4>
+                <p> You are in Adler North </p>
                 {{!-- Help Request Button sends to DB with attribute 'help' --}}
                 <form action="/HelpRequestNorth" method="POST" class="col s12">
                     <div class="row">

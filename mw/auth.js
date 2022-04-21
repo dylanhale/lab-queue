@@ -1,4 +1,5 @@
 module.exports = {
+    //Ensures user is authenticated, if not logged in then redirect to login page
     ensureAuth: function (req, res, next) {
         if(req.isAuthenticated()){
             return next()
@@ -8,6 +9,7 @@ module.exports = {
         }
     },
 
+    //Ensures user is logged in
     ensureUser: function (req, res, next) {
         if(req.isAuthenticated()){
             res.redirect('/NorthQueue')
@@ -17,6 +19,7 @@ module.exports = {
         }
     },
 
+    //Checks if a user is an Admin
     ensureAdmin: function (req, res, next){
         if(req.user.isAdmin){
             return next()
@@ -26,6 +29,7 @@ module.exports = {
         }
     },
 
+    //Checks if a user is a TA
     ensureTa: function (req, res, next){
         if(req.user.isTA || req.user.isAdmin){
             return next()

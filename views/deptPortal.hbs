@@ -18,25 +18,29 @@
                     <h6 for="deleteRequest">Delete all Grades</h6>
                 </button>
             </form>
+            <form action="/clearUsers" method="POST" id="delete-form">
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
             <form action="/HelpRequestNorth" method="POST" id="delete-form">
                 <input type="hidden" name="_method" value="DELETE">
                 <button type="deleteRequest" class="btn red darken-4">
-                    <h6 for="deleteRequest">Delete all North Help Requests</h6>
+                    <h6 for="deleteRequest">Clear North Requests</h6>
                 </button>
             </form>
             <form action="/HelpRequestSouth" method="POST" id="delete-form">
                 <input type="hidden" name="_method" value="DELETE">
                 <button type="deleteRequest" class="btn red darken-4">
-                    <h6 for="deleteRequest">Delete all South Help Requests</h6>
+                    <h6 for="deleteRequest">Clear South Requests</h6>
                 </button>
             </form>
+            
             <h6>Admin Controls</h6>
         </div>
     </div>
     <div class="adminColumn2">
         <div class="card">
             <h2>Add Teaching Assistants</h2>
-            <form action="/admin" method="POST" class="col s12">
+            <form action="/deptPortal" method="POST" class="col s12">
                 <div class="row">
                     <div class="input-field">
                     <input type="text" id="taName" name="taName">
@@ -61,7 +65,7 @@
                             <td>{{taName}}</td>
                             <td>{{formatDate dateAdded ' MMMM DD YYYY @ h:mm:ss a'}}</td>
                             <td> 
-                                <form action="/admin/{{_id}}" method="POST" id="delete-form">
+                                <form action="/deptPortal/{{_id}}" method="POST" id="delete-form">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="deleteRequest" class="btn red btn-delete">
                                         <a>Delete TA</a>

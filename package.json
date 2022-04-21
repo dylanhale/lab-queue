@@ -4,8 +4,13 @@
     "author": "Dylan Hale",
     "description": "queue system with grading",
     "main": "app.js",
+    "engines": {
+        "node": "16.13.2"
+     },
+    "private": true,
     "scripts": {
-        "start": "cross-env NODE_ENV=production node app",
+        "startLocal": "cross-env NODE_ENV=production node app",
+        "start": "node app.js",
         "dev": "cross-env NODE_ENV=development nodemon app"
     },
     "license": "ISC",

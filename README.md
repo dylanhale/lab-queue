@@ -10,12 +10,12 @@ Senior project
     <li>April - Project Rehash</li>
     <li>April - Full Database and Google OAuth Implementation</li>
     <li>April - Queue Views feature complete</li>
+    <li>April - Grade Portal Implementation</li>
+    <li>April - Admin Panel Implementation</li>
 </ul>
 
 ## Future Development
 <ul>
-<li>April - Grade Portal Implementation</li>
-<li>April - Admin Panel? Implementation</li>
 <li>May - Product Delivery</li>
 </ul>
 
@@ -34,4 +34,5 @@ Senior project
     <li>https://www.mongodb.com/docs/atlas/data-explorer/databases-collections/</li>
     <li>https://support.google.com/cloud/answer/6158849?hl=en</li>
     <li>https://www.mongodb.com/docs/realm/authentication/google/#std-label-auth-gcp-project-setup</li>
+    <li>https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment</li>
 </ul>
