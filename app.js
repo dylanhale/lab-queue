@@ -38,14 +38,14 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 //Handlebar Setup
-const { formatDate, select } = require('./helpers/hbs')
+const { formatDate, ifEmptyOrWhitespace } = require('./helpers/hbs')
 
 app.engine(
   '.hbs', 
   exphbs.engine({ 
     helpers: {
       formatDate,
-      select
+      ifEmptyOrWhitespace
     }, 
     defaultLayout: 'main', 
     extname: '.hbs'

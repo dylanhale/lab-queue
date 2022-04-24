@@ -1,9 +1,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-{{!-- Empty Row Div to ensure cards are aligned properly --}}
-<div class="row">
-    <div class="row center">
+{{!-- Page Navigation --}}
+<div class="pageHeader">
+    <div class="card">
+        <div class="row center">
+            <button class="btn grey darken-3"><a href="/NorthQueue">Return to Queue</a></button>
+            {{#if isAdmin}}
+                <button class="btn grey darken-3"><a href="/deptPortal">Admin Control Panel</a></button>
+            {{/if}}
+        </div>
     </div>
 </div>
 
@@ -12,8 +18,7 @@
         <div class="card">
             <h4>Grade Portal</h4>
             <p>Select Course Below</p>
-            {{!-- Grade Request Button sends to DB with attribute 'grade'
-            <form action="/gradePortal/grades" method="GET" class="col s12">
+            {{!--<form action="/gradePortal/grades" method="GET" class="col s12">
                 <div class="col">
                     <div class="input-field">
                         <select id="courseNumber" name="courseId">

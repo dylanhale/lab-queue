@@ -6,8 +6,9 @@ const GradeScheme = require('../models/Grades')
 //Routes for searching in the Grade Portal
 router.get('/', ensureTa, async (req, res) => {
     try {
-        const grades = await GradeScheme.find({ courseNumber: { $in: ['111', '112', '211'] }  }).sort({ dateSubmitted: 'desc' }).lean()
-        res.render('classPortal/gradePortal', { 
+        const grades = await GradeScheme.find({}).sort({ "dateSubmitted": -1, "studentName": -1 }).lean()
+        res.render('classPortal/gradePortal', {
+            isAdmin: req.user.isAdmin, 
             grades
         })
     } catch (error) {
@@ -253,7 +254,7 @@ router.get('/112/8', ensureTa, async (req, res) => {
 //CSCI 211 All Sections
 router.get('/211', ensureTa, async (req, res) => {
     try {
-        const grades = await GradeScheme.find({ courseNumber: '211' }).sort({ dateSubmitted: 'desc' }).lean()
+        const grades = await GradeScheme.find({ courseNumber: '211' }).sort({ dateSubmitted: -1, studentName: -1 }).lean()
         res.render('classPortal/gradePortal211', {
             grades
         })

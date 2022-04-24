@@ -41,6 +41,7 @@ router.get('/NorthQueue', ensureAuth, async (req, res) => {
         const helpRequests = await HelpRequestNorth.find({ user: req.userId }).lean()
         const grades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         const taNames = await TAGradersSchema.find({}).lean()
+        const hasRequest = await HelpRequestNorth.find({ googleId: req.user.googleId }).lean()
         res.render('NorthQueue', {
             name: req.user.firstName,
             fullName: req.user.displayName,
@@ -51,6 +52,7 @@ router.get('/NorthQueue', ensureAuth, async (req, res) => {
             isAdmin: req.user.isAdmin,
             taNames, 
             grades,
+            hasRequest,
             helpRequests
         })
     } catch (error) {
@@ -66,6 +68,7 @@ router.get('/SouthQueue', ensureAuth, async (req, res) => {
         const helpRequests = await HelpRequestSouth.find({ user: req.userId }).lean()
         const Numgrades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         const taNames = await TAGradersSchema.find({}).lean()
+        const hasRequest = await HelpRequestSouth.find({ googleId: req.user.googleId }).lean()
         res.render('SouthQueue', {
             name: req.user.firstName,
             fullName: req.user.displayName,
@@ -76,6 +79,7 @@ router.get('/SouthQueue', ensureAuth, async (req, res) => {
             isAdmin: req.user.isAdmin,
             taNames,
             Numgrades,
+            hasRequest,
             helpRequests
         })
     } catch (error) {

@@ -29,6 +29,10 @@ const HelpRequestNorth = new mongoose.Schema({
     isGradeRequest:{
         type: Boolean,
         required: true
+    },
+    requestOpen:{
+        type: Boolean,
+        default: true
     }
 })
 

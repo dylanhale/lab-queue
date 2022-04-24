@@ -12,6 +12,8 @@ Senior project
     <li>April - Queue Views feature complete</li>
     <li>April - Grade Portal Implementation</li>
     <li>April - Admin Panel Implementation</li>
+    <li>April - In lab testing</li>
+    <li>April - User Interface Improvements from testing</li>
 </ul>
 
 ## Future Development

@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema({
     isTA:{
         type: Boolean,
         default: false
+    },
+    hasRequestOpen:{
+        type: Boolean,
+        default: false
     }
 })
 

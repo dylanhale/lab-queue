@@ -1,29 +1,32 @@
 <head>
-    {{!-- Reload site every 30 seconds // This is a workaround instead of implenting a websocket --}}
+    {{!-- Reload site every 30 seconds // This is a workaround for websocket --}}
     <meta http-equiv="refresh" content="30">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
 </head>
 
-{{!-- Empty Row Div to ensure cards are aligned properly --}}
-<div class="row">
-    <div class="row center">
+{{!-- Page Navigation --}}
+<div class="pageHeader">
+    <div class="card">
+        <div class="row center">
+            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">North Lab</h2>
+        </div>
+        <div class="row center">
+            <button class="btn grey darken-3"><a href="/SouthQueue">Go To Adler South</a></button>
+        </div>
     </div>
 </div>
 
 {{!-- Modal modified from template from https://www.w3schools.com/w3css/w3css_modal.asp --}}
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <div class="row">
     {{#if isAdmin}}
         <div class="inputColumn">
             <div class="card">
-                <h4>Welcome {{fullName}}</h4>
-                <p> You are in Adler North </p>
+                <h4>Welcome</h4>
+                <h5>System Admin</h5>
                 {{!-- Admin Options to go to Grade Portal and Admin Control Panel --}}
-                <div class="row">
-                    <div class="input-field">
-                    </div>
-                </div>
                 <div class="row">
                     <button class="btn grey darken-3"><a href="/gradePortal">Go To Grade Portal</a></button>
                 </div>
@@ -42,57 +45,63 @@
             <div class="col center">
                 <div class="card">
                     <h5>Welcome Lab TA</h5>
-                    <p>Adler North</p>
-                    {{!-- TA Options to go to Grade Portal and South Lab Queue --}}
-                    <div class="row">
-                        <button class="btn grey darken-3"><a href="/SouthQueue">Adler South</a></button>
-                    </div>
+                    {{!-- TA Options to go to Grade Portal --}}
                     <div class="row">
                         <div class="input-field"></div>
                     </div>
                     <div class="row">
                         <button class="btn grey darken-3"><a href="/gradePortal">Grade Portal</a></button>
                     </div>
+                    <div class="row">
+                        <div class="input-field"></div>
+                    </div>
+                    <p>Adler North Queue</p>
                 </div>
             </div>
         {{else}}
-            <div class="inputColumn">
-            <div class="card">
-                <h4>Welcome {{fullName}}</h4>
-                <p> You are in Adler North </p>
-                {{!-- Help Request Button sends to DB with attribute 'help' --}}
-                <form action="/HelpRequestNorth" method="POST" class="col s12">
-                    <div class="row">
-                        <div class="input-field">
-                            <input type="hidden" id="studentName" name="studentName" value="{{fullName}}">
-                            <input type="hidden" id="googleId" name="googleId" value="{{googleId}}">
+            {{#each hasRequest}}
+                {{#if requestOpen}}
+                    <div class="inputColumn">
+                        <div class="card">
+                            <h4>Welcome</h4>
+                            <h5>{{../fullName}}</h5>
+                            <p> You are in Adler North </p>
+                            <p style="color: grey; font-size:13px">You currently have a request open please wait for help</p>
+                            <h6>Adler North Lab Queue</h6>
                         </div>
                     </div>
+                {{/if}}
+            {{else}}
+                <div class="studentInputColumn">
+                    <div class="card">
+                        <h4>Welcome</h4>
+                        <h5>{{fullName}}</h5>
+                        <p> You are in Adler North </p>
+                        {{!-- Help Request Button sends to DB with attribute 'help' --}}
+                        <form action="/HelpRequestNorth" method="POST" class="col s12">
+                            <div class="row">
+                                <input type="hidden" id="studentName" name="studentName" value="{{./fullName}}">
+                                <input type="hidden" id="googleId" name="googleId" value="{{./googleId}}">
+                                <input type="hidden" id="requestType" name="requestType" value="Help">
+                                <input type="hidden" id="isGradeRequest" name="isGradeRequest" value="false">
+                                <input type="submit" value="Help Request" class="btn">
+                            </div>
+                        </form>
 
-                    <div class="row">
-                        <input type="hidden" id="requestType" name="requestType" value="Help">
-                        <input type="hidden" id="isGradeRequest" name="isGradeRequest" value="false">
-                        <input type="submit" value="Help Request" class="btn">
+                        {{!-- Grade Request Button sends to DB with attribute 'grade' --}}
+                        <form action="/HelpRequestNorth" method="POST" class="col s12">
+                            <div class="row">
+                                <input type="hidden" id="studentName" name="studentName" value="{{./fullName}}">
+                                <input type="hidden" id="googleId" name="googleId" value="{{./googleId}}">
+                                <input type="hidden" id="requestType" name="requestType" value="Grade">
+                                <input type="hidden" id="isGradeRequest" name="isGradeRequest" value="true">
+                                <input type="submit" value="Grade Request" class="btn green">
+                            </div>
+                        </form>
+                        <h6>Adler North Lab Queue</h6>
                     </div>
-                </form>
-
-                {{!-- Grade Request Button sends to DB with attribute 'grade' --}}
-                <form action="/HelpRequestNorth" method="POST" class="col s12">
-                    <div class="row">
-                        <div class="input-field">
-                            <input type="hidden" id="studentName" name="studentName" value="{{fullName}}">
-                            <input type="hidden" id="googleId" name="googleId" value="{{googleId}}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <input type="hidden" id="requestType" name="requestType" value="Grade">
-                        <input type="hidden" id="isGradeRequest" name="isGradeRequest" value="true">
-                        <input type="submit" value="Grade Request" class="btn green">
-                    </div>
-                </form>
-                <h6>Adler Lab Queue</h6>
-            </div>
-        </div>
+                </div>
+            {{/each}}
         {{/if}}        
     {{/if}}
     <div class="column">
@@ -125,21 +134,22 @@
                             </td>
                             <td>
                                 {{#if isGradeRequest}}
-                                        
-                                            {{#if ../isTA}}
-                                            <button onclick="document.getElementById('id01').style.display='block'" class="btn green btn-labCheck">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                            {{/if}}
-                                        <div class="w3-container">
-                                            <div id="id01" class="w3-modal">
-                                                <div class="w3-modal-content w3-card-4">
-                                                <header class="w3-container w3-white"> 
-                                                    <h4>Grade Input</h4>
-                                                    <h6>Enter the grade information below</h6>
+                                    {{#if ../isTA}}
+                                        <button onclick="document.getElementById('id01').style.display='block'" class="btn green btn-labCheck">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    {{/if}}
+                                    <div class="w3-container">
+                                        <div id="id01" class="w3-modal">
+                                            <div class="w3-modal-content w3-card-4">
+                                                <header class="w3-container w3-white">
+                                                    <div>
+                                                        <h4>Grade Input</h4>
+                                                        <h6>Enter the grade information below</h6>
+                                                    </div>
                                                 </header>
                                                 <div class="w3-container">
-                                                    <form action="/Grades/North" method="POST" class="col s12">                   
+                                                    <form action="/Grades/North" method="POST" class="col s12">              
                                                         <div class="col">
                                                             <div class="col">
                                                                 <div class="input-field">
@@ -169,16 +179,13 @@
                                                             <div class="col">
                                                                 <div class="input-field">
                                                                     <select id="labGrade" name="labGrade">
-                                                                        <option value="1" id="labGrade" name="labGrade">1</option>
-                                                                        <option value="2" id="labGrade" name="labGrade">2</option>
-                                                                        <option value="3" id="labGrade" name="labGrade">3</option>
-                                                                        <option value="4" id="labGrade" name="labGrade">4</option>
-                                                                        <option value="5" id="labGrade" name="labGrade">5</option>
-                                                                        <option value="6" id="labGrade" name="labGrade">6</option>
-                                                                        <option value="7" id="labGrade" name="labGrade">7</option>
-                                                                        <option value="8" id="labGrade" name="labGrade">8</option>
-                                                                        <option value="9" id="labGrade" name="labGrade">9</option>
                                                                         <option value="10" id="labGrade" name="labGrade">10</option>
+                                                                        <option value="9" id="labGrade" name="labGrade">9</option>
+                                                                        <option value="8" id="labGrade" name="labGrade">8</option>
+                                                                        <option value="7" id="labGrade" name="labGrade">7</option>
+                                                                        <option value="6" id="labGrade" name="labGrade">6</option>
+                                                                        <option value="5" id="labGrade" name="labGrade">5</option>
+                                                                        <option value="4" id="labGrade" name="labGrade">4</option>
                                                                     </select>
                                                                     <label for="labGrade">Grade</label>
                                                                 </div>
@@ -187,7 +194,7 @@
                                                                 <div class="input-field">
                                                                     <select id="taGrader" name="taGrader">
                                                                         {{#each ../taNames}}
-                                                                        <option value="{{taName}}" id="taGrader" name="taGrader">{{taName}}</option>
+                                                                            <option value="{{taName}}" id="taGrader" name="taGrader">{{taName}}</option>
                                                                         {{/each}}
                                                                     </select>
                                                                     <label for="taGrader">TA Name</label>
@@ -211,9 +218,9 @@
                                                 <footer class="w3-container w3-white">
                                                     <h6> </h6>
                                                 </footer>
-                                                </div>
                                             </div>
                                         </div>
+                                    </div>
                                 {{/if}}
                             </td>
                         </tr>
