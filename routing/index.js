@@ -40,7 +40,7 @@ router.get('/NorthQueue', ensureAuth, async (req, res) => {
     try {
         const helpRequests = await HelpRequestNorth.find({ user: req.userId }).lean()
         const grades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        const taNames = await TAGradersSchema.find({}).lean()
+        const taNames = await TAGradersSchema.find({}).sort({"taName":1}).lean()
         const hasRequest = await HelpRequestNorth.find({ googleId: req.user.googleId }).lean()
         res.render('NorthQueue', {
             name: req.user.firstName,
@@ -67,7 +67,7 @@ router.get('/SouthQueue', ensureAuth, async (req, res) => {
     try {
         const helpRequests = await HelpRequestSouth.find({ user: req.userId }).lean()
         const Numgrades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        const taNames = await TAGradersSchema.find({}).lean()
+        const taNames = await TAGradersSchema.find({}).sort({"taName":1}).lean()
         const hasRequest = await HelpRequestSouth.find({ googleId: req.user.googleId }).lean()
         res.render('SouthQueue', {
             name: req.user.firstName,
@@ -140,16 +140,15 @@ router.delete('/HelpRequestSouth/:id', ensureAuth, async (req, res) => {
 
 //Post Grade from Adler North and Delete Request
 //route POST /grades
-router.post('/Grades/North', ensureTa, async (req, res) => {
+router.post('/Grades/North/:id', ensureTa, async (req, res) => {
     try {
         await GradeScheme.create(req.body)
-        await HelpRequestNorth.deleteOne({ _id: req.body.helpRequestID })
-        const tester = await HelpRequestNorth.find({ })
+        await HelpRequestNorth.deleteOne({ googleId: req.body.googleId })
         res.redirect('/NorthQueue')
     } catch (error) {
         console.error(error)
-        res.render('error/500')
-    } 
+        res.render('error/501')
+    }
 })
 
 //Post Grade from Adler South and Delete Request
@@ -157,12 +156,12 @@ router.post('/Grades/North', ensureTa, async (req, res) => {
 router.post('/Grades/South', ensureTa, async (req, res) => {
     try {
         await GradeScheme.create(req.body)
-        await HelpRequestSouth.deleteOne({ _id: req.body.helpRequestID })
+        await HelpRequestSouth.deleteOne({ googleId: req.body.googleId })
         res.redirect('/SouthQueue')
     } catch (error) {
         console.error(error)
-        res.render('error/500')
-    } 
+        res.render('error/501')
+    }
 })
 
 //Delete All Recorded Grades

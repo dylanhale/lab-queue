@@ -19,6 +19,12 @@
 
 {{!-- Modal modified from template from https://www.w3schools.com/w3css/w3css_modal.asp --}}
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+    });
+</script>
 
 <div class="row">
     {{#if isAdmin}}
@@ -133,23 +139,27 @@
                                 {{/if}}
                             </td>
                             <td>
+                                
                                 {{#if isGradeRequest}}
-                                    {{#if ../isTA}}
-                                        <button onclick="document.getElementById('id01').style.display='block'" class="btn green btn-labCheck">
+                                    
+                                        <button onclick="document.getElementById('id01{{@key}}').style.display='block'" class="btn green btn-labCheck" data-target="#id01{{@key}}">
                                             <i class="fas fa-check"></i>
                                         </button>
-                                    {{/if}}
+                                    
+                                    
                                     <div class="w3-container">
-                                        <div id="id01" class="w3-modal">
+                                        <div id="id01{{@key}}" class="w3-modal">
                                             <div class="w3-modal-content w3-card-4">
                                                 <header class="w3-container w3-white">
                                                     <div>
                                                         <h4>Grade Input</h4>
-                                                        <h6>Enter the grade information below</h6>
+                                                        <h6>Enter the grade information below for {{studentName}}</h6>
                                                     </div>
                                                 </header>
                                                 <div class="w3-container">
-                                                    <form action="/Grades/North" method="POST" class="col s12">              
+                                                    <form action="/Grades/North/{{this._id}}" method="POST" class="col s12">
+                                                    <input type="hidden" id="helpRequestID" name="helpRequestID" value="{{this._id}}">
+                                                    <input type="hidden" id="googleId" name="googleId" value="{{this.googleId}}">
                                                         <div class="col">
                                                             <div class="col">
                                                                 <div class="input-field">
@@ -205,12 +215,12 @@
                                                             <h4> </h4>
                                                         </div> 
                                                         <div class="col">
-                                                            <input type="button" onclick="document.getElementById('id01').style.display='none'" value="Cancel" class="btn red btn-grade">
+                                                            <input type="button" onclick="document.getElementById('id01{{@key}}').style.display='none'" value="Cancel" class="btn red btn-grade">
                                                         </div>
                                                         <div class="row">
                                                             <input type="hidden" id="studentName" name="studentName" value="{{studentName}}">
-                                                            <input type="hidden" id="googleId" name="googleId" value="{{../googleId}}">
-                                                            <input type="hidden" id="helpRequestID" name="helpRequestID" value="{{./_id}}">
+                                                            
+                                                            
                                                             <input type="submit" value="Submit" class="btn green btn-grade">
                                                         </div> 
                                                     </form>
