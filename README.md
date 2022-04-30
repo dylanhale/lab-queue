@@ -14,11 +14,8 @@ Senior project
     <li>April - Admin Panel Implementation</li>
     <li>April - In lab testing</li>
     <li>April - User Interface Improvements from testing</li>
-</ul>
-
-## Future Development
-<ul>
-<li>May - Product Delivery</li>
+    <li>April - Product Delivered</li>
+    <li>April - Bug Fix Patch</li>
 </ul>
 
 ## Sources Used in the development of the project
